@@ -28,6 +28,7 @@ public class ViewControllerTest {
 	
 	@GetMapping("/image/upload")
 	public String uploadPage() {
+		System.out.println("dd");
 		return "image/upload";
 	}
 	
