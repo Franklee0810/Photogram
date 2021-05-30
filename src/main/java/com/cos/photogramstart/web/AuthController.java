@@ -52,6 +52,7 @@ public class AuthController {
 				System.out.println(error.getDefaultMessage());
 				System.out.println("--");
 				System.out.println("--");
+				System.out.println("--");
 			}
 			return "오류";
 		} else {
