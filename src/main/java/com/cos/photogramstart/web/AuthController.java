@@ -50,6 +50,7 @@ public class AuthController {
 			for(FieldError error : bindingResult.getFieldErrors()) {
 				errorMap.put(error.getField(), error.getDefaultMessage());
 				System.out.println(error.getDefaultMessage());
+				System.out.println("--");
 			}
 			return "오류";
 		} else {
