@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.service.AuthService;
@@ -41,10 +42,8 @@ public class AuthController {
 	
 	
 	@PostMapping("/auth/signup")
-	public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
+	public @ResponseBody String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
 		
-		System.out.println(signupDto.getUsername());
-		System.out.println("==============");
 		if(bindingResult.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<>();
 			
@@ -52,12 +51,24 @@ public class AuthController {
 				errorMap.put(error.getField(), error.getDefaultMessage());
 				System.out.println(error.getDefaultMessage());
 			}
+			return "오류";
+		} else {
+			//User user = signupDto.toEntity();
+			
+			User user = new User(signupDto.getUsername(), 
+								signupDto.getPassword(), 
+								signupDto.getEmail(),
+								signupDto.getName()
+								);
+			
+			User userEntity = authService.회원가입(user);
+			
+			
+			
+			System.out.println(userEntity);
+			return "auth/signin";
 		}
-		
-		User user = signupDto.toEntity();
-		User userEntity = authService.회원가입(user);
-		System.out.println(userEntity);
-		return "auth/signin";
+ 		
 	}
 	
 	

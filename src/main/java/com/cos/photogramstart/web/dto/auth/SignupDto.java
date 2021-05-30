@@ -2,6 +2,7 @@ package com.cos.photogramstart.web.dto.auth;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.cos.photogramstart.domain.user.User;
 
@@ -10,7 +11,7 @@ import lombok.Data;
 @Data
 public class SignupDto {
 	
-	@Max(20)
+	@Size(min =2, max = 20)
 	private String username;
 	
 	@NotBlank
@@ -31,7 +32,19 @@ public class SignupDto {
 				.build();
 	}
 	
+	public SignupDto() {
+		// TODO Auto-generated constructor stub
+	}
 	
+	public SignupDto(@Size(min = 2, max = 20) String username, @NotBlank String password, @NotBlank String email,
+			@NotBlank String name) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.name = name;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -55,6 +68,13 @@ public class SignupDto {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	@Override
+	public String toString() {
+		return "SignupDto [username=" + username + ", password=" + password + ", email=" + email + ", name=" + name
+				+ "]";
 	}
 	
 	

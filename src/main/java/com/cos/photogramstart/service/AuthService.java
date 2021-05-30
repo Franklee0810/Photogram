@@ -19,14 +19,16 @@ public class AuthService {
 	
 	@Transactional
 	public User 회원가입(User user) {
+		System.out.println("========");
 		
+		System.out.println(user.toString());
+		
+		System.out.println("========");
 		String rawPassword = user.getPassword();
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		user.setRole("ROLE_USER");
-		
-	 
-		
+		 
 		User userEntity = userRepository.save(user);
 		return userEntity;
 	}

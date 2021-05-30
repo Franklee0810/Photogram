@@ -89,6 +89,13 @@ public class User {
 	
 	
 	
+	public User(String username) {
+		super();
+		this.username = username;
+	}
+
+
+
 	public User() {}
 	public User(int id, String username, String password, String name, String website, String bio, String email,
 			String phone, String gender, String profileImageUrl, String role, LocalDateTime createDate) {
@@ -108,6 +115,15 @@ public class User {
 	}
 	
 	
+
+	public User(String username, String password, String email, String name) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+	}
+
 
 
 	@PrePersist
