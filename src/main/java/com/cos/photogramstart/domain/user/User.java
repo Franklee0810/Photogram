@@ -2,6 +2,7 @@ package com.cos.photogramstart.domain.user;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,12 +20,19 @@ public class User {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(length = 20, unique = true)
 	private String username;
+
+	@Column(nullable = false)
 	private String password;
 	
+	@Column(nullable = false)
 	private String name;
+	
 	private String website;
 	private String bio;
+	
+	@Column(nullable = false)
 	private String email;
 	private String phone;
 	private String gender;
@@ -34,23 +42,22 @@ public class User {
 	
 	private LocalDateTime createDate;
 	
-	public User() {}
-	public User(int id, String username, String password, String name, String website, String bio, String email,
-			String phone, String gender, String profileImageUrl, String role, LocalDateTime createDate) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.website = website;
-		this.bio = bio;
-		this.email = email;
-		this.phone = phone;
-		this.gender = gender;
-		this.profileImageUrl = profileImageUrl;
-		this.role = role;
-		this.createDate = createDate;
+	
+	
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", website="
+				+ website + ", bio=" + bio + ", email=" + email + ", phone=" + phone + ", gender=" + gender
+				+ ", profileImageUrl=" + profileImageUrl + ", role=" + role + ", createDate=" + createDate + "]";
 	}
+
+
+
+	public static UserBuilder builder() {
+	    return new UserBuilder();
+	  }
+	
 	
 	
 	public int getId() {return id;}
@@ -77,9 +84,124 @@ public class User {
 	public void setRole(String role) {this.role = role;}
 	public LocalDateTime getCreateDate() {return createDate;}
 	public void setCreateDate(LocalDateTime createDate) {this.createDate = createDate;}
+	
+	
+	
+	
+	
+	public User() {}
+	public User(int id, String username, String password, String name, String website, String bio, String email,
+			String phone, String gender, String profileImageUrl, String role, LocalDateTime createDate) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.website = website;
+		this.bio = bio;
+		this.email = email;
+		this.phone = phone;
+		this.gender = gender;
+		this.profileImageUrl = profileImageUrl;
+		this.role = role;
+		this.createDate = createDate;
+	}
+	
+	
+
 
 	@PrePersist
 	public void createDate() {
 		this.createDate = LocalDateTime.now();
 	}
+
+
+ 
+//Builder Class
+public static class UserBuilder {
+	private int id;
+	
+	private String username;
+	private String password;
+	
+	private String name;
+	private String website;
+	private String bio;
+	private String email;
+	private String phone;
+	private String gender;
+	
+	private String profileImageUrl;
+	private String role;
+	
+	private LocalDateTime createDate;
+
+	public User build() {
+	  User user = new User();
+	  user.setId(this.id);
+	  user.setName(this.username);
+	  user.setPassword(this.password);
+	  user.setName(this.name);
+	  user.setWebsite(this.website);
+	  user.setBio(this.bio);
+	  user.setEmail(this.email);
+	  user.setPhone(this.phone);
+	  user.setGender(this.gender);
+	  user.setProfileImageUrl(this.profileImageUrl);
+	  user.setRole(this.role);
+	  user.setCreateDate(this.createDate);
+	  return user;
+	}
+
+	public UserBuilder id(int id) {
+      this.id = id;
+	  return this;
+	}
+
+	public UserBuilder username(String username) {
+	  this.username = username;
+	  return this;
+	}
+	public UserBuilder password(String password) {
+		  this.password = password;
+		  return this;
+		}
+
+	public UserBuilder name(String name) {
+	  this.name = name;
+	  return this;
+	} 
+
+	public UserBuilder website(String website) {
+	  this.website = website;
+	  return this;
+	}
+	public UserBuilder bio(String bio) {
+	  this.bio = bio;
+	  return this;
+	}
+	public UserBuilder email(String email) {
+	  this.email = email;
+	  return this;
+	}
+	public UserBuilder phone(String phone) {
+	  this.phone = phone;
+	  return this;
+	}
+	public UserBuilder profileImageUrl(String profileImageUrl) {
+	  this.profileImageUrl = profileImageUrl;
+	  return this;
+	}
+	public UserBuilder role(String role) {
+	  this.role = role;
+	  return this;
+	}
+	public UserBuilder createDate(LocalDateTime createDate) {
+	  this.createDate = createDate;
+	  return this;
+	}
 }
+
+}
+
+
